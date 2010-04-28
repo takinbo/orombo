@@ -5,7 +5,7 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
+    # Example
     # (r'^orombo/', include('orombo.foo.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
