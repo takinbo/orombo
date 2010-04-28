@@ -1,23 +1,51 @@
+# vim: ai sts=4 ts=4 et sw=4
 """
-This file demonstrates two different styles of tests (one doctest and one
-unittest). These will both pass when you run "manage.py test".
-
-Replace these with more appropriate tests for your application.
+Doctests for the Orombo project
 """
 
-from django.test import TestCase
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.failUnlessEqual(1 + 1, 2)
-
-__test__ = {"doctest": """
-Another way to test that 1 + 1 is equal to 2.
-
->>> 1 + 1 == 2
+__test__ = {
+"PostForm_test": '''
+>>> from forms import PostForm
+>>> # Testing a valid URL
+>>> data = {'title': 'Google Homepage', 'url': 'http://www.google.com/'}
+>>> f = PostForm(data)
+>>> f.is_valid()
 True
-"""}
+>>>
+>>> # Testing an invalid URL
+>>> data = {'title': 'None Existent', 'url': 'http://www.google.com/doesnotexist'}
+>>> f = PostForm(data)
+>>> f.is_valid()
+False
+>>>
+>>> # Testing a missing title
+>>> data = {'url': 'http://www.google.com'}
+>>> f = PostForm(data)
+>>> f.is_valid()
+False
+''',
+
+"CommentForm_test": '''
+''',
+
+"PostModel_test": '''
+Testing the proper creation of slugs
+>>> from models import Post
+>>> from django.contrib.auth.models import User
+>>> u = User.objects.create_user('john', 'johndoe@orombo.com', 'orombopassword')
+>>> u.save()
+>>> p = Post(title="Hello World",url="http://www.google.com/",author=u)
+>>> p.save()
+>>> p
+<Post: Hello World>
+>>> p.slug
+u'hello-world'
+''',
+
+"VoteModel_test": '''
+''',
+
+"CommentModel_test": '''
+''',
+}
 
